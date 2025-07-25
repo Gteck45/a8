@@ -7,18 +7,16 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
 
-// IMPORTANT: Replace 'YOUR_UNIQUE_CRUDCRUD_ID' with your actual unique ID from crudcrud.com
-// You can get a new unique ID by visiting https://crudcrud.com/ and creating a new endpoint.
-const CRUDCRUD_BASE_BASE_URL = process.env.CRUDCRUD_API_URL || "https://crudcrud.com/api/cdb5b152b9b242468b958be1922e3468"; // Use environment variable
-const USERS_ENDPOINT = `${CRUDCRUD_BASE_BASE_URL}/users`; // Full URL for users endpoint
 
-let secrets = ["Jack Bauer is my hero."]; // Array to store multiple secrets 
+const CRUDCRUD_BASE_BASE_URL = process.env.CRUDCRUD_API_URL || "https://crudcrud.com/api/cdb5b152b9b242468b958be1922e3468"; 
+const USERS_ENDPOINT = `${CRUDCRUD_BASE_BASE_URL}/users`; 
 
+let secrets = ["Jack Bauer is my hero."];
 app.post("/register",async function(req, res){
     try{   
         const newUser = {
             email : req.body.username,
-            password : req.body.password // Passwords will be stored in plain text on crudcrud.com
+            password : req.body.password 
         };
         await axios.post(USERS_ENDPOINT, newUser);
         res.redirect("/secrets");
